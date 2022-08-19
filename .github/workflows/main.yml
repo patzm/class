@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build on top of the LaTeX image
-        run: docker build . --tag my-tex-whale
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: false
+          tags: patzm/my-tex-whale:latest
 
   render:
     runs-on: ubuntu-latest
@@ -21,7 +25,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v2
+
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: render
         run: ./gen && ./render
       # - uses: ncipollo/release-action@v1
