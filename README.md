@@ -14,4 +14,4 @@ pip install chevron
 ```
 
 ## Usage
-Just execute the command to 
+Just execute the command `make` to generate the documents and render them.
