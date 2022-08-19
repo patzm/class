@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: render
-      run: make
+      run: ./gen && ./render
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "rendered/*.pdf"
