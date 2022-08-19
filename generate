@@ -25,8 +25,8 @@ def format_as_columns(data: List[str], n_columns: int, n_rows: Optional[int] = N
 
 
 def render_document(name: str, content: str, template_file_name: str, output_file_name: Optional[str] = None):
-	print(f"Rendering document {output_file_name} with the title {name}.")
-	
+	print(f"Rendering document '{output_file_name}' with the title '{name}'.")
+
 	content = {
 		"content": content,
 		"date": date.today(),
