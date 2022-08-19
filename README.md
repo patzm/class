@@ -8,9 +8,9 @@ Install a minimal LaTeX distribution such as [basictex](https://www.tug.org/mact
 brew install --cask basictex
 ```
 
-Install `chevron`
+Install the Python dependencies
 ```bash
-pip install chevron
+pip install -r requirements.txt
 ```
 
 ## Usage
