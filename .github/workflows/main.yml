@@ -8,20 +8,10 @@ on:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: build on top of the LaTeX image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          push: false
-          tags: patzm/my-tex-whale:latest
-
   render:
     runs-on: ubuntu-latest
     container:
-      image: my-tex-whale
+      image: patzm/tex-whale:latest
     permissions:
       contents: write
     steps:
