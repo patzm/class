@@ -1,0 +1,24 @@
+name: Releases
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: julianahrens/latex-alpine:latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v2
+    - name: render
+      run: make
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "rendered/*.pdf"
+        bodyFile: "body.md"
+        token: ${{ secrets.YOUR_GITHUB_TOKEN }}
