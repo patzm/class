@@ -19,8 +19,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: render
-        run: ./gen && ./render
+      - name: generate tex files
+        run: ./gen
+
+      - name: render PDF files
+        run: ./render
       # - uses: ncipollo/release-action@v1
       #   with:
       #     artifacts: "rendered/*.pdf"
