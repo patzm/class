@@ -4,7 +4,7 @@ clean:
 	rm -r generated rendered
 
 generate:
-	./gen
+	./generate
 
 render:
 	./render

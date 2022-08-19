@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: generate tex files
-        run: ./gen
+        run: ./generate
 
       - name: render PDF files
         run: ./render
