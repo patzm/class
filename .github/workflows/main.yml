@@ -10,16 +10,22 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: build on top of the LaTeX image
+        run: docker build . --tag my-tex-whale
+
+  render:
+    runs-on: ubuntu-latest
     container:
-      image: julianahrens/latex-alpine:latest
+      image: my-tex-whale
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v2
-    - name: render
-      run: ./gen && ./render
-    # - uses: ncipollo/release-action@v1
-    #   with:
-    #     artifacts: "rendered/*.pdf"
-    #     bodyFile: "body.md"
-    #     token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: render
+        run: ./gen && ./render
+      # - uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "rendered/*.pdf"
+      #     bodyFile: "body.md"
+      #     token: ${{ secrets.YOUR_GITHUB_TOKEN }}
