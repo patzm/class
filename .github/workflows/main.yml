@@ -17,15 +17,16 @@ jobs:
     steps:
 
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: generate tex files
         run: ./generate
 
       - name: render PDF files
         run: ./render
-      # - uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: "rendered/*.pdf"
-      #     bodyFile: "body.md"
-      #     token: ${{ secrets.YOUR_GITHUB_TOKEN }}
+
+      - name: publish PDFs
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDFs
+          path: rendered/*.pdf
