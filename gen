@@ -1,0 +1,56 @@
+#! /usr/bin/env python
+
+import os
+from datetime import date
+from typing import List, Optional
+
+import chevron
+
+from mathematics import simple_add, simple_mul, simple_sub_only_pos
+
+
+def format_as_columns(data: List[str], n_columns: int, n_rows: Optional[int] = None, format_as_math: bool = False) -> str:
+	if format_as_math:
+		data = list(map(lambda elem: f"${elem}$", data))
+
+	if n_rows:
+		pass
+
+	content = (r" \\" + "\n").join(data)
+
+	with open(os.path.join("templates", "columns.tex.ms"), "r") as file:
+		rendered_content = chevron.render(file, {"n_columns": n_columns, "content": content})
+
+	return rendered_content
+
+
+def render_document(name: str, content: str, template_file_name: str, output_file_name: Optional[str] = None):
+	content = {
+		"content": content,
+		"date": date.today(),
+		"title": name,
+	}
+
+	with open(os.path.join("templates", template_file_name), "r") as file:
+		doc = chevron.render(file, content)
+
+	if output_file_name:
+		os.makedirs("generated", exist_ok=True)
+		with open(os.path.join("generated", output_file_name), "w") as file:
+			file.write(doc)
+	else:
+		print(doc)
+
+
+print("Generating tasks")
+
+simple_add_content = format_as_columns(simple_add(), n_columns=3, format_as_math=True)
+render_document("Simple additions", simple_add_content, "document.tex.ms", "simple_add.tex")
+
+simple_mul_content = format_as_columns(simple_mul(), n_columns=3, format_as_math=True)
+render_document("Simple multiplications", simple_mul_content, "document.tex.ms", "simple_mul.tex")
+
+simple_sub_only_pos_content = format_as_columns(simple_sub_only_pos(), n_columns=3, format_as_math=True)
+render_document("Simple subtractions", simple_sub_only_pos_content, "document.tex.ms", "simple_sub_only_pos.tex")
+
+print("Done")

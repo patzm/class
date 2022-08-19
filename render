@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+OUTPUT_DIR=rendered
+
+shopt -s nullglob
+
+mkdir -p "${OUTPUT_DIR}"
+for doc in generated/*.tex; do
+	echo "Rendering ${doc}"
+	pdflatex -output-directory="${OUTPUT_DIR}" "${doc}"
+done
+
+echo "Cleaning up in ${OUTPUT_DIR}"
+rm ${OUTPUT_DIR}/*.aux ${OUTPUT_DIR}/*.log
